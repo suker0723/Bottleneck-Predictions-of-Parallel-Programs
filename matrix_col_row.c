@@ -17,10 +17,10 @@ double rowMajor(double **matrix, int M, int N) {
 double colMajor(double **matrix, int M, int N) {
     double temp = 0.0;
     int i, j;
-#pragma omp parallel for reduction(+:temp) private(i)
-    for (j = 0; j < M; j++) {
-        for (i = 0; i < N; i++) {
-            temp += matrix[i][j];
+#pragma omp parallel for reduction(+:temp) private(j)
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < M; j++) {
+            temp += matrix[j][i];
         }
     }
     return temp;
