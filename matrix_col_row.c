@@ -2,6 +2,29 @@
 #include <stdlib.h>
 #include <time.h>
 
+double rowMajor(double **matrix, int M, int N) {
+    double temp = 0.0;
+    int i, j;
+#pragma omp parallel for reduction(+:temp) private(j)
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < M; j++) {
+            temp += matrix[i][j];
+        }
+    }
+    return temp;
+}
+
+double colMajor(double **matrix, int M, int N) {
+    double temp = 0.0;
+    int i, j;
+#pragma omp parallel for reduction(+:temp) private(i)
+    for (j = 0; j < M; j++) {
+        for (i = 0; i < N; i++) {
+            temp += matrix[i][j];
+        }
+    }
+    return temp;
+}
 
 
 int main(int argc, char *argv[]) {
@@ -13,13 +36,13 @@ int main(int argc, char *argv[]) {
     int N = atoi(argv[1]);
     int M = atoi(argv[2]);
 
+    int i,j;
+    double sum_row_major, sum_col_major;
+    double **matrix;
 
-    int i, j, sum_row_major = 0, sum_col_major = 0;
-    int **matrix;
-
-    matrix = (int **)malloc(N * sizeof(int *));
+    matrix = (double **) malloc(N * sizeof(double *));
     for (i = 0; i < N; i++) {
-        matrix[i] = (int *)malloc(M * sizeof(int));
+        matrix[i] = (double *) malloc(M * sizeof(double));
     }
 
     srand(time(NULL));
@@ -33,27 +56,19 @@ int main(int argc, char *argv[]) {
 
     // Row-major order (contiguous)
     start_row_major = clock();
-    for (i = 0; i < N; i++) {
-        for (j = 0; j < M; j++) {
-            sum_row_major += matrix[i][j];
-        }
-    }
+    sum_row_major = rowMajor(matrix, M, N);
     end_row_major = clock();
 
     // Column-major order (non-contiguous)
     start_col_major = clock();
-    for (i = 0; i < N; i++) {
-        for (j = 0; j < M; j++) {
-            sum_col_major += matrix[j][i];
-        }
-    }
+    sum_col_major = colMajor(matrix, M, N);
     end_col_major = clock();
 
-    double row_major_time = (double)(end_row_major - start_row_major) / CLOCKS_PER_SEC;
-    double col_major_time = (double)(end_col_major - start_col_major) / CLOCKS_PER_SEC;
+    double row_major_time = (double) (end_row_major - start_row_major) / CLOCKS_PER_SEC;
+    double col_major_time = (double) (end_col_major - start_col_major) / CLOCKS_PER_SEC;
 
-    printf("Row-major sum: %d\n", sum_row_major);
-    printf("Column-major sum: %d\n", sum_col_major);
+    printf("Row-major sum: %f\n", sum_row_major);
+    printf("Column-major sum: %f\n", sum_col_major);
     printf("Row-major time: %f seconds\n", row_major_time);
     printf("Column-major time: %f seconds\n", col_major_time);
 

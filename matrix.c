@@ -3,6 +3,18 @@
 #include <stdlib.h>
 #include <time.h>
 
+double matrixSum(double **matrix, int M, int N) {
+    double temp = 0.0;
+    int i, j;
+#pragma omp parallel for reduction(+:temp) private(j)
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < M; j++) {
+            temp += matrix[i][j];
+        }
+    }
+    return temp;
+}
+
 int main(int argc, char *argv[]) {
     if (argc < 3) {
         printf("Usage: %s <N> <M>\n", argv[0]);
@@ -12,12 +24,13 @@ int main(int argc, char *argv[]) {
     int N = atoi(argv[1]);
     int M = atoi(argv[2]);
 
-    int i, j, sum = 0;
-    int **matrix;
+    int i, j;
+    double sum;
+    double **matrix;
 
-    matrix = (int **)malloc(N * sizeof(int *));
+    matrix = (double **) malloc(N * sizeof(double *));
     for (i = 0; i < N; i++) {
-        matrix[i] = (int *)malloc(M * sizeof(int));
+        matrix[i] = (double *) malloc(M * sizeof(double));
     }
 
     srand(time(NULL));
@@ -29,17 +42,11 @@ int main(int argc, char *argv[]) {
 
     double start_time = omp_get_wtime();
 
-    #pragma omp parallel for reduction(+:sum) private(j)
-    for (i = 0; i < N; i++) {
-        for (j = 0; j < M; j++) {
-            // Accessing elements in a non-contiguous manner to cause cache misses
-            sum += matrix[j][i];
-        }
-    }
+    sum = matrixSum(matrix, M, N);
 
     double end_time = omp_get_wtime();
 
-    printf("Sum: %d\n", sum);
+    printf("Sum: %f\n", sum);
     printf("Time taken: %f seconds\n", end_time - start_time);
 
     for (i = 0; i < N; i++) {
