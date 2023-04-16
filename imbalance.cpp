@@ -22,16 +22,16 @@ void dummyfunc(int n, int scale){
 }
 
 int main(int argc, char** argv) {
-    int n = 100000; //atoi(argv[1]);
-    //int p = 2; //atoi(argv[2]);
+    int p = atoi(argv[1]); //2
+    int n = 100000; //atoi(argv[2]);
     int scale = 100;
-    //printf("number of threads: %d, n: %d, scale: %d\n", p, n, scale);
+    printf("number of threads: %d, n: %d, scale: %d\n", p, n, scale);
     double tstart, tend;
     tstart = omp_get_wtime();
-    #pragma omp parallel //num_threads(p)
+    #pragma omp parallel num_threads(p)
     {
-        int p = omp_get_num_threads();
-        printf("number of threads: %d, n: %d, scale: %d\n", p, n, scale);
+        // int p = omp_get_num_threads();
+        // printf("number of threads: %d, n: %d, scale: %d\n", p, n, scale);
         // #pragma omp for schedule(static, 1)
         // #pragma omp for schedule(dynamic, 1)
         #pragma omp for schedule(static)
