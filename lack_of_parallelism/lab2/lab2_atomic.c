@@ -26,13 +26,13 @@ int main(int argc, char* argv[]){
 
     tstart = omp_get_wtime(); 
     int max_divisor = floor((N + 1)/ 2);
-    #pragma omp parallel num_threads(t)
-    for(int divisor = 2; divisor <= max_divisor; divisor++){
+    int divisor;
+    #pragma omp parallel for num_threads(t) private(divisor) schedule(static,1)
+    for(divisor = 2; divisor <= max_divisor; divisor++){
         if(!is_prime[divisor]){
             continue;
         }
         int max_multiple = floor(N/divisor);
-        #pragma omp parallel for
         for(int multiple = 2; multiple <= max_multiple; multiple++){
             if(is_prime[multiple * divisor] == 1){
                 #pragma omp atomic write
