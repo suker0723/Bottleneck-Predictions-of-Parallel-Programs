@@ -1,0 +1,13 @@
+{
+    "monitored events": [
+      "task",
+      "task create",
+      "thread",
+      "parallel",
+      "sync region",
+      "taskwait"
+    ],
+    "max tasks":2048,
+    "graph time":"yes",
+    "critical path":"yes"
+  }
