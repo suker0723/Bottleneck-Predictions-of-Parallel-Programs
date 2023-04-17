@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-double matrixSum(double **matrix, int M, int N) {
+double matrixSum(double **matrix, int M, int N, int T) {
     double temp = 0.0;
     int i, j;
-#pragma omp parallel for reduction(+:temp) private(j)
+#pragma omp parallel num_threads(T) reduction(+:temp) private(j)
     for (i = 0; i < N; i++) {
         for (j = 0; j < M; j++) {
             temp += matrix[i][j];
@@ -16,13 +16,14 @@ double matrixSum(double **matrix, int M, int N) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc < 3) {
-        printf("Usage: %s <N> <M>\n", argv[0]);
+    if (argc < 4) {
+        printf("Usage: %s <N> <M> <T>\n", argv[0]);
         exit(1);
     }
 
     int N = atoi(argv[1]);
     int M = atoi(argv[2]);
+    int T = atoi(argv[3]);
 
     int i, j;
     double sum;
@@ -42,7 +43,7 @@ int main(int argc, char *argv[]) {
 
     double start_time = omp_get_wtime();
 
-    sum = matrixSum(matrix, M, N);
+    sum = matrixSum(matrix, M, N, T);
 
     double end_time = omp_get_wtime();
 

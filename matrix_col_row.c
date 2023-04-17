@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-double rowMajor(double **matrix, int M, int N) {
+double rowMajor(double **matrix, int M, int N, int T) {
     double temp = 0.0;
     int i, j;
-#pragma omp parallel for reduction(+:temp) private(j)
+#pragma omp parallel num_threads(T) reduction(+:temp) private(j)
     for (i = 0; i < N; i++) {
         for (j = 0; j < M; j++) {
             temp += matrix[i][j];
@@ -14,10 +14,10 @@ double rowMajor(double **matrix, int M, int N) {
     return temp;
 }
 
-double colMajor(double **matrix, int M, int N) {
+double colMajor(double **matrix, int M, int N, int T) {
     double temp = 0.0;
     int i, j;
-#pragma omp parallel for reduction(+:temp) private(j)
+#pragma omp parallel num_threads(T) reduction(+:temp) private(j)
     for (i = 0; i < N; i++) {
         for (j = 0; j < M; j++) {
             temp += matrix[j][i];
@@ -28,13 +28,14 @@ double colMajor(double **matrix, int M, int N) {
 
 
 int main(int argc, char *argv[]) {
-    if (argc < 3) {
-        printf("Usage: %s <N> <M>\n", argv[0]);
+    if (argc < 4) {
+        printf("Usage: %s <N> <M> <T>\n", argv[0]);
         exit(1);
     }
 
     int N = atoi(argv[1]);
     int M = atoi(argv[2]);
+    int T = atoi(argv[3]);
 
     int i,j;
     double sum_row_major, sum_col_major;
@@ -56,12 +57,12 @@ int main(int argc, char *argv[]) {
 
     // Row-major order (contiguous)
     start_row_major = clock();
-    sum_row_major = rowMajor(matrix, M, N);
+    sum_row_major = rowMajor(matrix, M, N, T);
     end_row_major = clock();
 
     // Column-major order (non-contiguous)
     start_col_major = clock();
-    sum_col_major = colMajor(matrix, M, N);
+    sum_col_major = colMajor(matrix, M, N, T);
     end_col_major = clock();
 
     double row_major_time = (double) (end_row_major - start_row_major) / CLOCKS_PER_SEC;
@@ -69,8 +70,8 @@ int main(int argc, char *argv[]) {
 
     printf("Row-major sum: %f\n", sum_row_major);
     printf("Column-major sum: %f\n", sum_col_major);
-    printf("Row-major time: %f seconds\n", row_major_time);
-    printf("Column-major time: %f seconds\n", col_major_time);
+    printf("Row-major time: %f seconds in %d threads\n", row_major_time, T);
+    printf("Column-major time: %f seconds in %d threads\n", col_major_time, T);
 
     for (i = 0; i < N; i++) {
         free(matrix[i]);

@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-double blockSum(double **matrix, int M, int N, int BLOCK_SIZE) {
+double blockSum(double **matrix, int M, int N, int BLOCK_SIZE, int T) {
     double sum_block = 0.0;
     int i, j;
 
-#pragma omp parallel for private(j) reduction(+:sum_block)
+#pragma omp parallel num_threads(T) private(j) reduction(+:sum_block)
     for (int bi = 0; bi < N; bi += BLOCK_SIZE) {
         for (int bj = 0; bj < M; bj += BLOCK_SIZE) {
             for (i = bi; i < bi + BLOCK_SIZE && i < N; i++) {
@@ -23,14 +23,15 @@ double blockSum(double **matrix, int M, int N, int BLOCK_SIZE) {
 
 int main(int argc, char *argv[]) {
 
-    if (argc < 4) {
-        printf("Usage: %s <N> <M> <block_size>\n", argv[0]);
+    if (argc < 5) {
+        printf("Usage: %s <N> <M> <block_size> <T>\n", argv[0]);
         exit(1);
     }
 
     int N = atoi(argv[1]);
     int M = atoi(argv[2]);
     int BLOCK_SIZE = atoi(argv[3]);
+    int T = atoi(argc[4]);
 
     int i, j;
     double sum_block;
@@ -53,7 +54,7 @@ int main(int argc, char *argv[]) {
     // Block partitioning
     start_block = omp_get_wtime();
 
-    sum_block = blockSum(matrix, M, N, BLOCK_SIZE);
+    sum_block = blockSum(matrix, M, N, BLOCK_SIZE, T);
 
     end_block = omp_get_wtime();
 
