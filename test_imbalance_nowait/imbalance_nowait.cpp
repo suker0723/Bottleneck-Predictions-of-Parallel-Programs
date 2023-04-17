@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
         // printf("number of threads: %d, n: %d, scale: %d\n", p, n, scale);
         // #pragma omp for schedule(static, 1)
         // #pragma omp for schedule(dynamic, 1)
-        #pragma omp for schedule(static)
+        #pragma omp for schedule(static) nowait
         for(int i=1; i<n; i++){
             dummyfunc(i, scale);
         }
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
             dummyfunc(n-i, scale);
         }
     }
-    double tend = omp_get_wtime();
+    tend = omp_get_wtime();
     printf("time: %f\n", tend-tstart);
     return 0;
 }

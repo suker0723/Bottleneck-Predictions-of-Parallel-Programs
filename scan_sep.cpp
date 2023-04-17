@@ -43,7 +43,7 @@ void scan_omp(long* prefix_sum, const long* A, long n, int num_threads) {
   }
   // correct the partial sum in parallel again
   // pay attention to the mismatch
-  #pragma omp parallel num_threads(p)
+  #pragma omp parallel num_threads(p) shared(offset)
   {
     int t = omp_get_thread_num();
     long start = t * n / p;
