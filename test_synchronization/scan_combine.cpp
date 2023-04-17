@@ -1,7 +1,7 @@
 // parallel scan
 // finish in one combined parallel region
 // bottleneck can be the explicit barrier for thread synchronization
-#include <algorithm>
+//#include <algorithm>
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
