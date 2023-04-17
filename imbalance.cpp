@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
             dummyfunc(n-i, scale);
         }
     }
-    double tend = omp_get_wtime();
+    tend = omp_get_wtime();
     printf("time: %f\n", tend-tstart);
     return 0;
 }
