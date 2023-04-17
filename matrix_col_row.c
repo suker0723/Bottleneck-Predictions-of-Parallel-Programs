@@ -17,7 +17,7 @@ double rowMajor(double **matrix, int M, int N, int T) {
 double colMajor(double **matrix, int M, int N, int T) {
     double temp = 0.0;
     int i, j;
-#pragma omp parallel num_threads(T) reduction(+:temp) private(j)
+#pragma omp parallel for num_threads(T) reduction(+:temp) private(j)
     for (i = 0; i < N; i++) {
         for (j = 0; j < M; j++) {
             temp += matrix[j][i];

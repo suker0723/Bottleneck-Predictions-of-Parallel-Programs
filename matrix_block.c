@@ -7,7 +7,7 @@ double blockSum(double **matrix, int M, int N, int BLOCK_SIZE, int T) {
     double sum_block = 0.0;
     int i, j;
 
-#pragma omp parallel num_threads(T) private(j) reduction(+:sum_block)
+#pragma omp parallel for num_threads(T) private(j) reduction(+:sum_block)
     for (int bi = 0; bi < N; bi += BLOCK_SIZE) {
         for (int bj = 0; bj < M; bj += BLOCK_SIZE) {
             for (i = bi; i < bi + BLOCK_SIZE && i < N; i++) {
