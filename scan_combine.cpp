@@ -25,7 +25,7 @@ void scan_omp(long* prefix_sum, const long* A, long n, int num_threads){
   // in parallel
   long* offset = (long*) malloc(p * sizeof(long));
   offset[0] = 0;
-  #pragma omp parallel shared(offset)
+  #pragma omp parallel shared(offset) num_threads(p)
   {
     int t = omp_get_thread_num();
     long start = t * n / p;
