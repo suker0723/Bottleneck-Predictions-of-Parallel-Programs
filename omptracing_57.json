@@ -1,0 +1,125 @@
+[
+{
+	"cat": "OMPT",
+	"pid": "All",
+	"tid": "Tracing",
+	"ts": 117.608994,
+	"ph": "I",
+	"name": "Initialize",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 0",
+	"tid": "Thread Region",
+	"ts": 1977.628998,
+	"ph": "B",
+	"name": "Thread Region",
+	"args": {
+		"Type:": "Initial"
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "All",
+	"tid": "Parallel Region",
+	"ts": 28559.867996,
+	"ph": "B",
+	"name": "Parallel Region 0",
+	"args": {
+		"Requested parallelism:": "2"
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 0",
+	"tid": "Sync Region",
+	"ts": 28786.510994,
+	"ph": "B",
+	"name": "Barrier Implicit 0",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 1",
+	"tid": "Thread Region",
+	"ts": 28815.406998,
+	"ph": "B",
+	"name": "Thread Region",
+	"args": {
+		"Type:": "Worker"
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 1",
+	"tid": "Sync Region",
+	"ts": 28818.492996,
+	"ph": "B",
+	"name": "Barrier Implicit 1",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 0",
+	"tid": "Sync Region",
+	"ts": 28820.283997,
+	"ph": "E",
+	"name": "Barrier Implicit 0",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "All",
+	"tid": "Parallel Region",
+	"ts": 28821.636993,
+	"ph": "E",
+	"name": "Parallel Region 0",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 0",
+	"tid": "Thread Region",
+	"ts": 29223.959000,
+	"ph": "E",
+	"name": "Thread Region",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 1",
+	"tid": "Sync Region",
+	"ts": 29310.549995,
+	"ph": "E",
+	"name": "Barrier Implicit 1",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 1",
+	"tid": "Thread Region",
+	"ts": 29311.201996,
+	"ph": "E",
+	"name": "Thread Region",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "All",
+	"tid": "Tracing",
+	"ts": 29406.348999,
+	"ph": "I",
+	"name": "Finalize",
+	"args": {
+	}
+}
+]
