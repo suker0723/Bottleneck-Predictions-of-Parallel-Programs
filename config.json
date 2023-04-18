@@ -1,13 +1,16 @@
 {
-    "monitored events": [
-      "task",
-      "task create",
-      "thread",
-      "parallel",
-      "sync region",
-      "taskwait"
-    ],
-    "max tasks":2048,
-    "graph time":"yes",
-    "critical path":"yes"
-  }
+  "monitored events": [
+    "task",
+    "task create",
+    "thread",
+    "parallel",
+    "work",
+    "implicit task",
+    "master",
+    "sync region",
+    "taskwait"
+  ],
+  "max tasks":2048,
+  "graph time":"yes",
+  "critical path":"yes"
+}

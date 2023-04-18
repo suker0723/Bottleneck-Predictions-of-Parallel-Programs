@@ -12,20 +12,20 @@
 #include <math.h>
 #include <omp.h>
 
-void dummyfunc(int n, int scale){
+void dummyfunc(long n, int scale){
     // run time proportional to n
     double x = 0;
-    int N = n*scale;
-    for(int i=0; i<N; i++){
+    long N = n*scale;
+    for(long i=0; i<N; i++){
         x += sin(i);
     }
 }
 
 int main(int argc, char** argv) {
     int p = atoi(argv[1]); //2
-    int n = 100000; //atoi(argv[2]);
+    long n = 100000000; //atoi(argv[2]);
     int scale = 100;
-    printf("number of threads: %d, n: %d, scale: %d\n", p, n, scale);
+    printf("number of threads: %d, n: %ld, scale: %d\n", p, n, scale);
     double tstart, tend;
     tstart = omp_get_wtime();
     #pragma omp parallel num_threads(p)
@@ -35,13 +35,13 @@ int main(int argc, char** argv) {
         // #pragma omp for schedule(static, 1)
         // #pragma omp for schedule(dynamic, 1)
         #pragma omp for schedule(static)
-        for(int i=1; i<n; i++){
+        for(long i=1; i<n; i++){
             dummyfunc(i, scale);
         }
         // #pragma omp for schedule(static, 1)
         // #pragma omp for schedule(dynamic, 1)
         #pragma omp for schedule(static)
-        for(int i=1; i<n; i++){
+        for(long i=1; i<n; i++){
             dummyfunc(n-i, scale);
         }
     }
