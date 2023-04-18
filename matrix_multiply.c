@@ -3,9 +3,7 @@
 #include <omp.h>
 #include <time.h>
 
-#define matrix_size 1024
-
-void initialize_matrix(double **matrix, int block_size) {
+void initialize_matrix(double **matrix, int matrix_size) {
     for (int i = 0; i < matrix_size; i++) {
         for (int j = 0; j < matrix_size; j++) {
             matrix[i][j] = (double)rand() / RAND_MAX;
@@ -13,18 +11,12 @@ void initialize_matrix(double **matrix, int block_size) {
     }
 }
 
-void matrix_multiplication(double **A, double **B, double **C, int block_size) {
-    #pragma omp parallel for collapse(2)
-    for (int ii = 0; ii < matrix_size; ii += block_size) {
-        for (int jj = 0; jj < matrix_size; jj += block_size) {
-            for (int kk = 0; kk < matrix_size; kk += block_size) {
-                for (int i = ii; i < ii + block_size; i++) {
-                    for (int j = jj; j < jj + block_size; j++) {
-                        for (int k = kk; k < kk + block_size; k++) {
-                            C[i][j] += A[i][k] * B[k][j];
-                        }
-                    }
-                }
+void matrix_multiplication(double **A, double **B, double **C, int matrix_size) {
+    #pragma omp parallel for
+    for (int i = 0; i < matrix_size; i++) {
+        for (int j = 0; j < matrix_size; j++) {
+            for (int k = 0; k < matrix_size; k++) {
+                C[i][j] += A[i][k] * B[k][j];
             }
         }
     }
@@ -32,11 +24,11 @@ void matrix_multiplication(double **A, double **B, double **C, int block_size) {
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
-        printf("Usage: ./matrix_multiplication_openmp BLOCK_SIZE THREAD_NUMBER\n");
+        printf("Usage: ./matrix_multiplication_openmp MATRIX_SIZE THREAD_NUMBER\n");
         return 1;
     }
 
-    int block_size = atoi(argv[1]);
+    int matrix_size = atoi(argv[1]);
     int thread_number = atoi(argv[2]);
 
     omp_set_num_threads(thread_number);
@@ -48,7 +40,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < matrix_size; i++) {
         A[i] = (double *)malloc(matrix_size * sizeof(double));
         B[i] = (double *)malloc(matrix_size * sizeof(double));
-        C[i] = (double *)calloc(matrix_size, sizeof(double));
+        C[i] = (double *)malloc(matrix_size * sizeof(double));
     }
 
     srand(time(NULL));
@@ -56,7 +48,7 @@ int main(int argc, char *argv[]) {
     initialize_matrix(B, matrix_size);
 
     double start_time = omp_get_wtime();
-    matrix_multiplication(A, B, C, block_size);
+    matrix_multiplication(A, B, C, matrix_size);
     double end_time = omp_get_wtime();
 
     printf("Matrix multiplication completed in %.4f seconds.\n", end_time - start_time);
