@@ -2,25 +2,30 @@ test_imbalance/
 !test_imbalance/*.cpp
 !test_imbalance/*.c
 !test_imbalance/*.json
+!test_imbalance/Makefile
 
 test_balance/
 !test_balance/*.cpp
 !test_balance/*.c
 !test_balance/*.json
+!test_balance/Makefile
 
 test_imbalance_nowait/
 !test_imbalance_nowait/*.cpp
 !test_imbalance_nowait/*.c
 !test_imbalance_nowait/*.json
+!test_imbalance_nowait/Makefile
 
 test_balance_dynamic/
 !test_balance_dynamic/*.cpp
 !test_balance_dynamic/*.c
 !test_balance_dynamic/*.json
+!test_balance_dynamic/Makefile
 
 *.gv
 test_synchronization/
 !test_synchronization/*.cpp
 !test_synchronization/*.c
 !test_synchronization/*.json
+!test_synchronization/Makefile
 
