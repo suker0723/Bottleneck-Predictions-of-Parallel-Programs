@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
+#include <unistd.h>
 
 void dummyfunc(long n, int scale){
     // run time proportional to n
@@ -20,7 +21,6 @@ void dummyfunc(long n, int scale){
         x += sin(i);
     }
 }
-
 int main(int argc, char** argv) {
     int p = atoi(argv[1]); //2
     long n = 100000000; //atoi(argv[2]);
@@ -28,23 +28,20 @@ int main(int argc, char** argv) {
     printf("number of threads: %d, n: %ld, scale: %d\n", p, n, scale);
     double tstart, tend;
     tstart = omp_get_wtime();
-    #pragma omp parallel num_threads(p)
-    {
         // int p = omp_get_num_threads();
         // printf("number of threads: %d, n: %d, scale: %d\n", p, n, scale);
         // #pragma omp for schedule(static, 1)
         // #pragma omp for schedule(dynamic, 1)
-        #pragma omp for schedule(static)
+        #pragma omp parallel for num_threads(p) schedule(static) firstprivate(n)
         for(long i=1; i<n; i++){
             dummyfunc(i, scale);
         }
         // #pragma omp for schedule(static, 1)
         // #pragma omp for schedule(dynamic, 1)
-        #pragma omp for schedule(static)
+        #pragma omp parallel for num_threads(p) schedule(static) firstprivate(n)
         for(long i=1; i<n; i++){
             dummyfunc(n-i, scale);
         }
-    }
     tend = omp_get_wtime();
     printf("time: %f\n", tend-tstart);
     return 0;
