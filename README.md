@@ -28,6 +28,7 @@ Then check the graphs:
 
 ```kcachegrind cachegrind.out.<t_num> ```
 
+If The D1 miss rate reaches the threshold 4.6%, you probably have a bottleneck of cache access in your program.
 
 
 
