@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -fopenmp -O2
+CXXFLAGS = -Wall -fopenmp -O3
 LIBS = -lm
 TARGET = scan_combine
 OBJ = scan_combine.o
