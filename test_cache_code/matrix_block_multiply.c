@@ -18,26 +18,13 @@ void matrix_multiplication(double **A, double **B, double **C, int block_size) {
     for (int ii = 0; ii < matrix_size; ii += block_size) {
         for (int jj = 0; jj < matrix_size; jj += block_size) {
             for (int kk = 0; kk < matrix_size; kk += block_size) {
-                double **Temp = (double **)malloc(block_size * sizeof(double *));
-                for (int i = 0; i < block_size; i++) {
-                    Temp[i] = (double *)malloc(block_size * sizeof(double));
-                }
                 for (int i = ii; i < ii + block_size; i++) {
                     for (int j = jj; j < jj + block_size; j++) {
                         for (int k = kk; k < kk + block_size; k++) {
-                            Temp[i-ii][j-jj] += A[i][k] * B[k][j];
+                            C[i][j] += A[i][k] * B[k][j];
                         }
                     }
                 }
-               for (int i = 0; i < block_size; i++) {
-                    for(int j = 0; j<block_size; j++){
-                        C[i+ii][j+jj] = Temp[i][j];
-                    }
-                }
-                for (int i = 0; i < matrix_size; i++) {
-                    free(Temp[i]);
-                }
-                free(Temp);
             }
         }
     }
