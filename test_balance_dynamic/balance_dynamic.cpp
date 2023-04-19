@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
+#include <stdlib.h>
 
 void dummyfunc(long n, int scale){
     // run time proportional to n

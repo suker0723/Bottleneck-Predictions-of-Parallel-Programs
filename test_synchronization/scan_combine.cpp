@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 // Scan A array and write result into prefix_sum array;
 // use long data type to avoid overflow
