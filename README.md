@@ -1,5 +1,11 @@
 # Bottleneck-Predictions-of-Parallel-Programs
 
+NYU Multiple Processor final project
+2023.04
+Scott Chu
+Qiyuan Huang
+Yiwei Shao
+Juexiao Zhang
 
 ## Cache Miss tests
 Please first compiled it using the provided Makefile.
