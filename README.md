@@ -62,6 +62,10 @@ Then check the graphs:
 
 If The D1 miss rate reaches the threshold 4.6%, you probably have a bottleneck of cache access in your program.
 
+To analyze it in the jupyter notebook above, try the last command in it:
+
+```get_valgrind("valgrind_sample.txt")```
+
 
 
 
