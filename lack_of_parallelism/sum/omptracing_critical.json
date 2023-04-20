@@ -1,0 +1,86 @@
+[
+{
+	"cat": "OMPT",
+	"pid": "All",
+	"tid": "Tracing",
+	"ts": 30.627014,
+	"ph": "I",
+	"name": "Initialize",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 0",
+	"tid": "Thread Region",
+	"ts": 128.588989,
+	"ph": "B",
+	"name": "Thread Region",
+	"args": {
+		"Type:": "Initial"
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "All",
+	"tid": "Parallel Region",
+	"ts": 106078.830017,
+	"ph": "B",
+	"name": "Parallel Region 0",
+	"args": {
+		"Requested parallelism:": "1"
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 0",
+	"tid": "Work Region",
+	"ts": 106161.753967,
+	"ph": "B",
+	"name": "Loop 0",
+	"args": {
+		"Number of iterations: ": "10000000"
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 0",
+	"tid": "Work Region",
+	"ts": 457605.494995,
+	"ph": "E",
+	"name": "Loop 0",
+	"args": {
+		"Number of iterations: ": "10000000"
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "All",
+	"tid": "Parallel Region",
+	"ts": 457606.887024,
+	"ph": "E",
+	"name": "Parallel Region 0",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "Thread 0",
+	"tid": "Thread Region",
+	"ts": 457740.706970,
+	"ph": "E",
+	"name": "Thread Region",
+	"args": {
+	}
+},
+{
+	"cat": "OMPT",
+	"pid": "All",
+	"tid": "Tracing",
+	"ts": 457814.864990,
+	"ph": "I",
+	"name": "Finalize",
+	"args": {
+	}
+}
+]
