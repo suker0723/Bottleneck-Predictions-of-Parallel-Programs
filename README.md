@@ -43,6 +43,25 @@ Then check the graphs:
 
 If The D1 miss rate reaches the threshold 4.6%, you probably have a bottleneck of cache access in your program.
 
+## Omptracing Configuration
+[Omptracing](https://ompcluster.readthedocs.io/en/latest/omptracing.html) requires support of a new feature of OpenMP, [OMPT](https://www.openmp.org/spec-html/5.0/openmpsu15.html). It is implemented by clang and cannot be easily configured on CIMS server. So we use docker to configure the environment locally and here are the instructions:
+1. Get the docker image of omptracing  
+```docker pull ompcluster/runtime:latest``` 
+2. Enter the root of repository, run  
+```docker run -v "$PWD:$PWD" -w "$PWD" -it ompcluster/runtime:latest bash```
+3. Link the omptracing library and config file 
+```
+export OMP_TOOL_LIBRARIES=/opt/omptracing/lib/libomptracing.so
+export OMPTRACING_CONFIG_PATH=./config.json
+```
+4. Compile with  
+``` clang++ -O3 -Wall -g -fopenmp -latomic -o <output_path> <source_path> ```
+5. Run the program and there will be a json file produced in the PWD, using ```chrome://tracing``` to visualize or ```get_tracing()``` in [analyze.ipynb](https://github.com/suker0723/Bottleneck-Predictions-of-Parallel-Programs/blob/main/analyze.ipynb) to get the result.
+
+## Jupyter notebook environments
+package: numpy, pandas, json, regex, os
+
+
 
 
 
