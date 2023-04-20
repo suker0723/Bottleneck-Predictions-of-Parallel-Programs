@@ -6,10 +6,13 @@ NYU Multiple Processor final project
 
 Authors:
 
-Scott Chu
-Qiyuan Huang
-Yiwei Shao
-Juexiao Zhang
+Scott Chu zc2396@nyu.edu
+
+Qiyuan Huang qh2086@nyu.edu
+
+Yiwei Shao ys5070@nyu.edu
+
+Juexiao Zhang jz4725@nyu.edu
 
 ## Cache Miss tests
 Please first compiled it using the provided Makefile.
