@@ -1,7 +1,11 @@
 # Bottleneck-Predictions-of-Parallel-Programs
 
 NYU Multiple Processor final project
+
 2023.04
+
+Authors:
+
 Scott Chu
 Qiyuan Huang
 Yiwei Shao
