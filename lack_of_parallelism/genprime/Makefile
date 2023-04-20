@@ -7,14 +7,14 @@ CC = gcc
 CFLAGS = -O3 -std=c99 -Wall -fopenmp
 
 # Source files
-SRC = gen_prime_atomic.c
+SRC = genprime_atomic.c
 
-SRC2 = gen_prime_critical.c
+SRC2 = genprime_critical.c
 
 # Executable name
-EXE = gen_prime_atomic
+EXE = genprime_atomic
 
-EXE2 = gen_prime_critical
+EXE2 = genprime_critical
 
 # Default target
 all: $(EXE) $(EXE2)

@@ -21,9 +21,9 @@ all: $(EXE) $(EXE2)
 
 # Rule for building the executable
 $(EXE): $(SRC)
-        $(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 $(EXE2): $(SRC2)
-        $(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 # Clean target
 clean:
-        rm -f $(EXE)
+	rm -f $(EXE)

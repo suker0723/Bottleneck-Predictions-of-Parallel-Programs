@@ -1,2 +1,5 @@
 *.gv
+lack_of_parallelism/
+!lack_of_parallelism/**/.c
+!lack_of_parallelism/**/Makefile
 

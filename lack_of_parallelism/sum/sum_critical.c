@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[]) {
     int t = atoi(argv[1]);
-    unsigned long long N = atoi(argv[2]);
+    unsigned long long N = 10000000;
 
     unsigned long long i;
     long double sum = 0;
