@@ -1,29 +1,26 @@
-# Example compiling command:
-# gcc -O3 -std=c99 -Wall -fopenmp -o sum_reduction sum_reduction.c -lm
-# Compiler
 CC = gcc
+CFLAGS = -fopenmp -O3 -Wall -Wextra -std=c99
+TARGET1 = sum_critical
+TARGET2 = sum_reduction
+OBJECTS1 = sum_critical.o
+OBJECTS2 = sum_reduction.o
+LIBS = -lm
 
-# Compiler flags
-CFLAGS = -O3 -std=c99 -Wall -fopenmp
+all: $(TARGET1) $(TARGET2)
 
-# Source files
-SRC = sum_reduction.c
+$(TARGET1): $(OBJECTS1)
+	$(CC) $(CFLAGS) -o $(TARGET1) $(OBJECTS1) $(LIBS)
 
-SRC2 = sum_critical.c
+$(TARGET2): $(OBJECTS2)
+	$(CC) $(CFLAGS) -o $(TARGET2) $(OBJECTS2) $(LIBS)
 
-# Executable name
-EXE = sum_reduction
+sum_critical.o: sum_critical.c
+	$(CC) $(CFLAGS) -c sum_critical.c
 
-EXE2 = sum_critical
+sum_reduction.o: sum_reduction.c
+	$(CC) $(CFLAGS) -c sum_reduction.c
 
-# Default target
-all: $(EXE) $(EXE2)
-
-# Rule for building the executable
-$(EXE): $(SRC)
-	$(CC) $(CFLAGS) $< -o $@
-$(EXE2): $(SRC2)
-	$(CC) $(CFLAGS) $< -o $@
-# Clean target
 clean:
-	rm -f $(EXE)
+	rm -f $(TARGET1) $(TARGET2) $(OBJECTS1) $(OBJECTS2)
+
+.PHONY: all clean

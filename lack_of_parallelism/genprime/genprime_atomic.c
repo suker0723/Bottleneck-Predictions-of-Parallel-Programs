@@ -5,19 +5,15 @@
 #include <omp.h>
 
 int main(int argc, char* argv[]){
+    if (argc < 2) {
+        printf("Usage: ./genprime_atomic THREAD_NUMBER\n");
+        return 1;
+    }
+    
     int t = atoi(argv[1]);
     long N = 100000000;
     int* is_prime = (int*)malloc((N+1) * sizeof(int));
-    // FILE *fp;
-    // char filename[100];
-    // sprintf(filename, "%d", N);
-    // fp = fopen(filename, "w");
     double tstart = 0.0, ttaken;
-
-    // if (fp == NULL) {
-    //     printf("Failed to open the file.\n");
-    //     return 1;  // Return an error code
-    // }
 
     for(int i = 0; i <= N; i++){
         is_prime[i] = 1;
@@ -41,20 +37,6 @@ int main(int argc, char* argv[]){
         }
     }
     ttaken = omp_get_wtime() - tstart;
-
-
-    // int prime_rank = 1;
-    // for(int i = 1; i <= N; i++){
-    //     if(!is_prime[i]){
-    //         continue;
-    //     }
-    //     char result[100];
-    //     sprintf(result, "%d %d\n", prime_rank, i);
-    //     fputs(result,fp);
-    //     prime_rank++;
-    // }
-    
-    // fclose(fp);
     printf("Time take for the main part: %f\n", ttaken);
 
     return 0;

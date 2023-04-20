@@ -1,29 +1,26 @@
-# Example compiling command:
-# gcc -O3 -std=c99 -Wall -fopenmp -o genprime genprimes.c -lm
-# Compiler
 CC = gcc
+CFLAGS = -fopenmp -O3 -Wall -Wextra -std=c99
+TARGET1 = genprime_atomic
+TARGET2 = genprime_critical
+OBJECTS1 = genprime_atomic.o
+OBJECTS2 = genprime_critical.o
+LIBS = -lm
 
-# Compiler flags
-CFLAGS = -O3 -std=c99 -Wall -fopenmp
+all: $(TARGET1) $(TARGET2)
 
-# Source files
-SRC = genprime_atomic.c
+$(TARGET1): $(OBJECTS1)
+	$(CC) $(CFLAGS) -o $(TARGET1) $(OBJECTS1) $(LIBS)
 
-SRC2 = genprime_critical.c
+$(TARGET2): $(OBJECTS2)
+	$(CC) $(CFLAGS) -o $(TARGET2) $(OBJECTS2) $(LIBS)
 
-# Executable name
-EXE = genprime_atomic
+genprime_atomic.o: genprime_atomic.c
+	$(CC) $(CFLAGS) -c genprime_atomic.c
 
-EXE2 = genprime_critical
+genprime_critical.o: genprime_critical.c
+	$(CC) $(CFLAGS) -c genprime_critical.c
 
-# Default target
-all: $(EXE) $(EXE2)
-
-# Rule for building the executable
-$(EXE): $(SRC)
-	$(CC) $(CFLAGS) $< -o $@
-$(EXE2): $(SRC2)
-	$(CC) $(CFLAGS) $< -o $@
-# Clean target
 clean:
-	rm -f $(EXE)
+	rm -f $(TARGET1) $(TARGET2) $(OBJECTS1) $(OBJECTS2)
+
+.PHONY: all clean

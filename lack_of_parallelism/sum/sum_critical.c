@@ -5,6 +5,11 @@
 #include <omp.h>
 
 int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        printf("Usage: ./sum_critical THREAD_NUMBER\n");
+        return 1;
+    }
+
     int t = atoi(argv[1]);
     unsigned long long N = 10000000;
 
@@ -13,7 +18,7 @@ int main(int argc, char* argv[]) {
     double tstart = 0.0, ttaken;
 
     double* arr = (double*)malloc(N * sizeof(double));
-    for (int i = 0; i < N; i++) {
+    for (i = 0; i < N; i++) {
         arr[i] = rand() % 100;
     }
     tstart = omp_get_wtime();
